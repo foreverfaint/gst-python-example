@@ -1,9 +1,6 @@
-# gst-rtsp-server
+# gst-python-example
 
-An example for hosting a rtsp streaming by gstreamer. This code is inspired by [prabhakar-sivanesan/OpenCV-rtsp-server](https://github.com/prabhakar-sivanesan/OpenCV-rtsp-server). The major difference with [prabhakar-sivanesan/OpenCV-rtsp-server](https://github.com/prabhakar-sivanesan/OpenCV-rtsp-server) is supporting:
-
-- Playbacks a media file in cycle way for streaming.
-- Launch multiple rtsp streams.
+This repository demostrates how to use [gstreamer](https://gitlab.freedesktop.org/gstreamer/gstreamer) by [Python Binding](https://gitlab.freedesktop.org/gstreamer/gst-python). There is very few documentation about gstreamer. The most code and launch description written here are learned (or guessed) based on gstreamer C examples, e.g., [rtsp C example](https://gitlab.freedesktop.org/gstreamer/gst-rtsp-server/-/tree/master/examples), and then tested.
 
 ## Installation
 
@@ -63,6 +60,8 @@ $ gst-launch-1.0 rtspsrc location=rtsp://localhost:8554/1 latency=0 ! decodebin 
 
 ## Tip
 
+### debugging
+
 If your program doesn't work well, please set GST_DEBUG environment variable for logging some levels of information to stdout.
 
 ```bash
@@ -75,3 +74,7 @@ $ GST_DEBUG=6 python gst_rtsp_server_2.py
 # verbose and python logging only
 $ GST_DEBUG=python:6 python gst_rtsp_server_2.py
 ```
+
+### multifilesrc
+
+`multifilesrc` doesn't support video file in a loop way. As long as your location is a video file, the playback will be teminated after EOS (even you set `loop=true`). For the reason, please read a professional answer by Keivan [looping-a-video-with-gstreamer-and-gst-launch](https://stackoverflow.com/questions/6833147/looping-a-video-with-gstreamer-and-gst-launch).
